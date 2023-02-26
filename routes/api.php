@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 
+});
+
+Route::controller(ProjectController::class)->group(function () {
+    Route::get('project', 'index');
+    Route::post('project', 'store');
+    Route::get('project/{id}', 'show');
+    Route::put('project/{id}', 'update');
+    Route::delete('project/{id}', 'destroy');
 });

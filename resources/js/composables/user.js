@@ -21,7 +21,8 @@ export default function useUser(){
    const login  = async (user) => {
     await axios.post(  '/api/login', user).then(response => {
         if (response.data.authorisation.token) {
-            localStorage.setItem('userToken', JSON.stringify(response.data.authorisation.token));
+            localStorage.setItem('userToken', response.data.authorisation.token);
+            router.push({name: 'dashboard'});
         }
         }).catch((e) => {
         if (e.response.status === 422  ) {

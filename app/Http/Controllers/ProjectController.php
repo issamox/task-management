@@ -15,7 +15,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('created_at','DESC')->paginate(12);
         return response()->json([
             'status' => 'success',
             'projects' => $projects,
@@ -30,7 +30,7 @@ class ProjectController extends Controller
 
         $project = Project::create([
             'title' => $request->title,
-            'description' => $request->description,
+           // 'description' => $request->description,
             'user_id'     => Auth::user()->id
         ]);
 
@@ -43,7 +43,7 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        $project = Project::find($id);
+        $project = Project::with('tasks')->find($id);
         return response()->json([
             'status' => 'success',
             'project' => $project,
